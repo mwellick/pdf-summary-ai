@@ -31,3 +31,11 @@ def save_summary_to_db(filename: str, db: db_dependency):
     db.refresh(doc_summary)
 
     return {"filename": filename, "summary": summary}
+
+
+def get_last_five_docs(db: db_dependency):
+    history = db.query(DocumentSummary).order_by(
+        DocumentSummary.created_at.desc()
+    ).limit(5).all()
+
+    return history
