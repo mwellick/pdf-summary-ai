@@ -1,12 +1,11 @@
 import os
 from fastapi import UploadFile
-from .constraints import check_file_size, check_file_type
-
-UPLOAD_DIR = "uploads"
-
-  # 50 MB file
-
-os.makedirs(UPLOAD_DIR, exist_ok=True)
+from .constraints import (
+    UPLOAD_DIR,
+    check_file_size,
+    check_file_type,
+    check_file_exists
+)
 
 
 def upload_pdf_file(file: UploadFile):
