@@ -4,7 +4,7 @@ from .crud import upload_pdf_file, save_summary_to_db, get_last_five_docs
 from .constraints import parse_pdf_file
 from dependencies import db_dependency
 
-pdf_router = APIRouter()
+pdf_router = APIRouter(tags=["pdf"], prefix="/pdf")
 
 
 @pdf_router.post("/upload", status_code=status.HTTP_201_CREATED)
