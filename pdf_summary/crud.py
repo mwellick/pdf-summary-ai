@@ -1,11 +1,13 @@
 import os
 from fastapi import UploadFile
+from database.models import DocumentSummary
+from dependencies import db_dependency
 from .constraints import (
     UPLOAD_DIR,
     check_file_size,
     check_file_type,
-    check_file_exists
 )
+from .utils import generate_summary
 
 
 def upload_pdf_file(file: UploadFile):
@@ -19,3 +21,13 @@ def upload_pdf_file(file: UploadFile):
 
     file.file.seek(0)
     return {"filename": file.filename}
+
+
+def save_summary_to_db(filename: str, db: db_dependency):
+    summary = generate_summary(filename)
+    doc_summary = DocumentSummary(filename=filename, summary=summary)
+    db.add(doc_summary)
+    db.commit()
+    db.refresh(doc_summary)
+
+    return {"filename": filename, "summary": summary}
