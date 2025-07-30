@@ -58,7 +58,7 @@ def parse_pdf_file(filename: str):
         doc.close()
 
         return {
-            "text_preview": parsed_text[:100],
+            "text_preview": parsed_text[:400],
             "full_text": parsed_text,
             "number_of_images": image_count,
             "pages": number_of_pages
